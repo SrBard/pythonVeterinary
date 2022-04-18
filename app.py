@@ -1,3 +1,4 @@
+from urllib.request import Request
 from flask import Flask, render_template,request,flash,redirect,url_for
 from waitress import serve
 from sympy import true
@@ -9,6 +10,10 @@ app.secret_key = b'1293hda7821hgdn{q'
 def Sign():
     if request.method == 'GET':
         return render_template('Sign-in.html')
+    if request.method == 'POSt':
+        value = Request.form['Sign-in']
+        if value == 'submit':
+            
 
 @app.route("/", methods=['GET','POST'])
 def index():
@@ -18,4 +23,4 @@ def index():
     
 
 if __name__ == "__main__":
-    serve(app, host="192.168.100.195", port=5000)
+    serve(app, host="192.168.1.20", port=5000)
