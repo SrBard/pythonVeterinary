@@ -19,11 +19,11 @@ def read_file(file:str)->list:
     return list
 
 def verify_password_user(password:str,user:str)->bool:
-    list = read_file("Users.csv")
-    flag = false
+    list = read_file("users.csv")
+    flag = False
     for row in list:
         if  password == row[3] and user == row[2]:
-            flag=true
+            flag = True 
 
     return flag
              

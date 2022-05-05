@@ -1,4 +1,5 @@
 from distutils.log import debug
+from wsgiref.util import request_uri
 
 from flask import Flask, render_template,request,flash,redirect,url_for,session
 from waitress import serve
@@ -16,16 +17,18 @@ def Sign():
         if 'Sign-in' in request.form:
             value = request.form['Sign-in']
             if  value== "Sign in":
-                if request.form['password'] != "" and request.form['username']:
+                if request.form['password'] != "" and request.form['username'] !="":
                     valuep = request.form['password']
                     valuename = request.form['username']
                     print(verify_password_user(valuep,valuename))
                     if verify_password_user(valuep,valuename):
-                       return redirect('/Base')
+                       return redirect('Entro al cliente')
                     else:
-                        return redirect('Base.html')
+                        flash("Contraseña o usuario es incorrecto", "warning")
+                        return  redirect(request.url)
                 else:
-                    return redirect('Base.html')
+                    flash("Tienes que llenar todos los campos", "warning")
+                    return  redirect(request.url)
         
 
 
