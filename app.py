@@ -9,15 +9,14 @@ app = Flask(__name__)
 app.secret_key = b'1293hda7821hgdn{q'
 
 @app.route("/Sign-in", methods=['GET','POST'])
-@app.route("/<user>")
-def Sign(user):
+def Sign():
     if request.method == 'GET':
         return render_template('Sign-in.html')
     if request.method == 'POST':
         if 'Sign-in' in request.form:
             value = request.form['Sign-in']
             if  value== "Sign in":
-                if request.form['password'] != "" and request.form["username"]:
+                if request.form['password'] != "" and request.form['username']:
                     valuep = request.form['password']
                     valuename = request.form['username']
                     print(verify_password_user(valuep,valuename))
@@ -48,7 +47,13 @@ def index():
 def logout():
     if request.method == 'GET':
         session.clear()
-        return redirect("/")    
+        return redirect("/")
+
+@app.route("/create", methods=['GET','POST'])
+def create():
+    if request.method == 'GET':
+        return render_template('create.html')
+    
 
 if __name__ == "__main__":
     app.run(debug=true)
